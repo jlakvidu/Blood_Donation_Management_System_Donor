@@ -1,0 +1,104 @@
+<div class="health-tips-container">
+    <div class="hero-section">
+        <h1 class="animate-fade-in">Stay Healthy, Save Lives</h1>
+        <p class="animate-slide-up">Essential tips for blood donors to maintain optimal health</p>
+    </div>
+
+    <div class="tips-categories">
+        <div class="category-card animate-scale" *ngFor="let category of categories">
+            <div class="category-icon">
+                <i [class]="category.icon"></i>
+            </div>
+            <h3>{{category.title}}</h3>
+            <p>{{category.description}}</p>
+        </div>
+    </div>
+
+    <div class="tips-sections">
+        <!-- Before Donation -->
+        <section class="tip-section animate-slide-in">
+            <div class="tip-content">
+                <h2>Before Donation</h2>
+                <ul class="tip-list">
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        Get adequate sleep (7-8 hours)
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        Eat a healthy meal within 3 hours of donation
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        Drink plenty of water
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        Avoid fatty foods before donation
+                    </li>
+                </ul>
+            </div>
+            <div class="tip-image">
+                <img src="assets/images/before-donation.jpg" alt="Before Donation Tips">
+            </div>
+        </section>
+
+        <section class="tip-section reverse animate-slide-in">
+            <div class="tip-content">
+                <h2>Nutrition Guidelines</h2>
+                <div class="nutrition-grid">
+                    <div class="nutrition-item">
+                        <img src="assets/images/iron-rich.jpg" alt="Iron-rich foods">
+                        <h4>Iron-Rich Foods</h4>
+                        <p>Include lean meats, spinach, and legumes</p>
+                    </div>
+                    <div class="nutrition-item">
+                        <img src="assets/images/vitamins.jpg" alt="Vitamins">
+                        <h4>Vitamins</h4>
+                        <p>Consume citrus fruits and vegetables</p>
+                    </div>
+                    <div class="nutrition-item">
+                        <img src="assets/images/hydration.jpg" alt="Hydration">
+                        <h4>Hydration</h4>
+                        <p>Drink 8-10 glasses of water daily</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="tip-section animate-slide-in">
+            <div class="tip-content">
+                <h2>Post-Donation Care</h2>
+                <div class="recovery-tips">
+                    <div class="recovery-card">
+                        <i class="fas fa-bed"></i>
+                        <h4>Rest Well</h4>
+                        <p>Take it easy for the next 24 hours</p>
+                    </div>
+                    <div class="recovery-card">
+                        <i class="fas fa-tint"></i>
+                        <h4>Stay Hydrated</h4>
+                        <p>Increase fluid intake for 48 hours</p>
+                    </div>
+                    <div class="recovery-card">
+                        <i class="fas fa-dumbbell"></i>
+                        <h4>Avoid Heavy Exercise</h4>
+                        <p>Skip strenuous activities for 24 hours</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="tips-carousel">
+        <div class="carousel-container">
+            <div class="carousel-slide" *ngFor="let tip of quickTips">
+                <div class="quick-tip">
+                    <i [class]="tip.icon"></i>
+                    <h4>{{tip.title}}</h4>
+                    <p>{{tip.description}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

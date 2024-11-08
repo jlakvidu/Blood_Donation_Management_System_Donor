@@ -1,0 +1,107 @@
+<div class="registration-container">
+  <div class="image-section">
+    <img src="assets/images/donor-registration.jpg" alt="Blood Donation" class="registration-image">
+  </div>
+
+  <div class="form-section">
+    <h2>Donor Registration</h2>
+    <form [formGroup]="donorForm" (ngSubmit)="onSubmit()">
+      <div class="profile-image-container">
+        <div class="profile-image-wrapper">
+          <img [src]="previewUrl || 'assets/images/default-profile.jpg'" alt="Profile Preview" class="profile-image">
+          <div class="image-upload-overlay">
+            <label for="profileImage" class="upload-label">
+              <i class="fas fa-camera"></i>
+              <span>Upload Photo</span>
+            </label>
+            <input type="file" id="profileImage" class="image-upload-input" accept="image/*"
+              (change)="onFileSelected($event)" formControlName="profileImage">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" formControlName="name" class="form-control">
+        <div class="error-message" *ngIf="donorForm.get('name')?.touched && donorForm.get('name')?.invalid">
+          Name is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob" formControlName="dob" class="form-control" (change)="calculateAge()">
+      </div>
+
+      <div class="form-group">
+        <label for="age">Age</label>
+        <input type="number" id="age" formControlName="age" class="form-control" readonly>
+      </div>
+
+      <div class="form-group">
+        <label for="bloodType">Blood Type</label>
+        <select id="bloodType" formControlName="bloodType" class="form-control">
+          <option value="">Select Blood Type</option>
+          <option value="A+">A+</option>
+          <option value="A-">A-</option>
+          <option value="B+">B+</option>
+          <option value="B-">B-</option>
+          <option value="AB+">AB+</option>
+          <option value="AB-">AB-</option>
+          <option value="O+">O+</option>
+          <option value="O-">O-</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="contactNumber">Contact Number</label>
+        <input type="tel" id="contactNumber" formControlName="contactNumber" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="emailAddress">Email Address</label>
+        <input type="email" id="emailAddress" formControlName="emailAddress" class="form-control"
+          placeholder="Enter your email address">
+      </div>
+
+      <div class="form-group">
+        <label for="address">Address</label>
+        <textarea id="address" formControlName="address" class="form-control" rows="3"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="district">District</label>
+        <input type="text" id="district" formControlName="district" class="form-control"
+          placeholder="Enter your district">
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="input-group">
+          <input [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password"
+            class="form-control" placeholder="Enter your password">
+          <i [class.fa-eye]="!showPassword" [class.fa-eye-slash]="showPassword"
+            (click)="togglePasswordVisibility('password')" class="password-toggle"></i>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <div class="input-group">
+          <input [type]="showConfirmPassword ? 'text' : 'password'" id="confirmPassword"
+            formControlName="confirmPassword" class="form-control" placeholder="Confirm your password">
+          <i [class.fa-eye]="!showConfirmPassword" [class.fa-eye-slash]="showConfirmPassword"
+            (click)="togglePasswordVisibility('confirm')" class="password-toggle"></i>
+        </div>
+        <div class="error-message" *ngIf="donorForm.errors?.['passwordMismatch']">
+          Passwords do not match
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="!donorForm.valid" class="submit-button">
+        <span class="button-text">Register Donor</span>
+        <div class="spinner" *ngIf="isSubmitting"></div>
+      </button>
+    </form>
+  </div>
+</div>

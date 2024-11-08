@@ -1,0 +1,136 @@
+<div class="appointment-container">
+  <div class="hero-section">
+    <div class="hero-content">
+      <h1>Schedule Your Blood Donation</h1>
+      <p>Book your appointment at {{hospital?.name}}</p>
+    </div>
+    <div class="hero-image">
+      <img src="assets/images/donation-hero.png" alt="Blood Donation">
+    </div>
+  </div>
+
+  <div class="hospital-info-card" *ngIf="hospital">
+    <h2>{{hospital.name}}</h2>
+    <p><mat-icon>location_on</mat-icon> {{hospital.address}}</p>
+    <p><mat-icon>access_time</mat-icon> {{hospital.operatingDaysAndHours}}</p>
+    <p><mat-icon>phone</mat-icon> {{hospital.contactNumber}}</p>
+  </div>
+
+  <div class="form-section">
+    <div class="form-container">
+      <h2>Book Your Appointment</h2>
+
+      <form [formGroup]="appointmentForm" (ngSubmit)="submitAppointment()">
+        <div class="form-grid">
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Full Name</mat-label>
+              <input matInput formControlName="fullName" placeholder="Enter your full name">
+              <mat-icon matPrefix>person</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Contact Number</mat-label>
+              <input matInput formControlName="phone" placeholder="Enter your contact number">
+              <mat-icon matPrefix>phone</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email" placeholder="Enter your email">
+              <mat-icon matPrefix>email</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Blood Type</mat-label>
+              <mat-select formControlName="bloodType">
+                <mat-option *ngFor="let type of bloodTypes" [value]="type">
+                  {{type}}
+                </mat-option>
+              </mat-select>
+              <mat-icon matPrefix>water_drop</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Preferred Date</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="date">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-icon matPrefix>event</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Preferred Time</mat-label>
+              <mat-select formControlName="time">
+                <mat-option *ngFor="let slot of timeSlots" [value]="slot">
+                  {{slot}}
+                </mat-option>
+              </mat-select>
+              <mat-icon matPrefix>schedule</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="health-declaration">
+          <h3>Health Declaration</h3>
+          <mat-checkbox formControlName="healthDeclaration">
+            I confirm that I am in good health and eligible to donate blood
+          </mat-checkbox>
+        </div>
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="!appointmentForm.valid">
+          <mat-icon>check_circle</mat-icon>
+          Schedule Appointment
+        </button>
+      </form>
+    </div>
+
+    <div class="info-section">
+      <div class="info-card">
+        <mat-icon>info</mat-icon>
+        <h3>Important Information</h3>
+        <ul>
+          <li>Please bring a valid ID</li>
+          <li>Eat well before donation</li>
+          <li>Get adequate rest</li>
+          <li>Stay hydrated</li>
+        </ul>
+      </div>
+
+      <div class="process-steps">
+        <h3>Donation Process</h3>
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h4>Registration</h4>
+            <p>Complete registration and health screening</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h4>Medical Check</h4>
+            <p>Quick medical examination</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h4>Donation</h4>
+            <p>Safe and supervised donation process</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

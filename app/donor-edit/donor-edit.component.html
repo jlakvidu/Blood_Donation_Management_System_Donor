@@ -1,0 +1,120 @@
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Update Donor Profile</h4>
+        </div>
+
+        <div class="card-body">
+            <form (ngSubmit)="saveDonor()" #donorForm="ngForm">
+                <div class="row g-3">
+                    <!-- ID Field -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="donor-id" class="form-label">ID</label>
+                            <input type="number" class="form-control" [(ngModel)]="donor.id" name="id" id="donor-id"
+                                disabled>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="donor-name" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" [(ngModel)]="donor.name" name="name" id="donor-name"
+                                required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="donor-dob" class="form-label">Date of Birth</label>
+                            <input type="date" class="form-control" [(ngModel)]="donor.dob" name="dob" id="donor-dob"
+                                required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="donor-age" class="form-label">Age</label>
+                            <input type="number" class="form-control" [(ngModel)]="donor.age" name="age" id="donor-age"
+                                required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="donor-blood-type" class="form-label">Blood Type</label>
+                            <select class="form-select" [(ngModel)]="donor.bloodType" name="bloodType"
+                                id="donor-blood-type" required>
+                                <option value="">Select Blood Type</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="donor-contact" class="form-label">Contact Number</label>
+                            <input type="tel" class="form-control" [(ngModel)]="donor.contactNumber"
+                                name="contactNumber" id="donor-contact" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="donor-email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" [(ngModel)]="donor.emailAddress"
+                                name="emailAddress" id="donor-email" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="donor-district" class="form-label">District</label>
+                            <select class="form-select" [(ngModel)]="donor.district" name="district" id="donor-district"
+                                required>
+                                <option value="">Select District</option>
+                                <option *ngFor="let district of districts" [value]="district">
+                                    {{district}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback" *ngIf="donorForm.submitted && !donor.district">
+                                Please select a district
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="donor-address" class="form-label">Address</label>
+                            <textarea class="form-control" [(ngModel)]="donor.address" name="address" id="donor-address"
+                                rows="2" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="donor-password" class="form-label">Password</label>
+                            <input type="password" class="form-control" [(ngModel)]="donor.password" name="password"
+                                id="donor-password" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end gap-2 mt-4">
+                    <button type="button" class="btn btn-secondary" routerLink="/donors">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary" [disabled]="!donorForm.form.valid || !donor.district">
+                        Update Donor
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

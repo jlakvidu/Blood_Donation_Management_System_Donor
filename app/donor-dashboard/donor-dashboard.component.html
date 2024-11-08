@@ -1,0 +1,52 @@
+<main class="main-content">
+    <h2 class="mb-4">Donor Dashboard</h2>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <i class="fas fa-tint stat-icon"></i>
+            <h3>Total Donations</h3>
+            <h2 class="counter">{{donationStats.totalDonations}}</h2>
+            <p>Donations made</p>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-calendar-check stat-icon"></i>
+            <h3>Next Donation</h3>
+            <h2>{{donationStats.nextDonation}}</h2>
+            <p>Scheduled date</p>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-award stat-icon"></i>
+            <h3>Achievement Level</h3>
+            <h2>{{donationStats.achievementLevel}}</h2>
+            <p>Keep it up!</p>
+        </div>
+    </div>
+
+    <div class="donation-history">
+        <h3 class="mb-4">Recent Donations</h3>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Location</th>
+                        <th>Blood Type</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let donation of recentDonations">
+                        <td>{{donation.date}}</td>
+                        <td>{{donation.location}}</td>
+                        <td>{{donation.bloodType}}</td>
+                        <td>
+                            <span class="status-badge" [class]="getStatusClass(donation.status)">
+                                {{donation.status}}
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>

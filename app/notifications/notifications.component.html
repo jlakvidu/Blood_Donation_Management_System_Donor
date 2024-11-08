@@ -1,0 +1,117 @@
+<div class="notifications-container">
+    <h2>Notifications</h2>
+
+    <div class="loading-spinner" *ngIf="isLoading">
+        <div class="spinner"></div>
+        <p>Loading notifications...</p>
+    </div>
+
+    <div class="error-message" *ngIf="error">
+        {{ error }}
+    </div>
+
+    <div class="no-notifications" *ngIf="!isLoading && !error && notifications.length === 0">
+        <i class="fas fa-bell-slash"></i>
+        <p>No notifications found</p>
+    </div>
+
+    <div class="notifications-list" *ngIf="!isLoading && !error && notifications.length > 0">
+        <div *ngFor="let notification of notifications" class="notification-item" [class.unread]="!notification.isRead"
+            [attr.data-notification-id]="notification.id">
+            <div class="notification-content" (click)="openNotificationDetails(notification)">
+                <div class="notification-header">
+                    <h3>{{ notification.title }}</h3>
+                    <span class="date">{{ notification.createdAt | date:'medium' }}</span>
+                </div>
+                <p>{{ notification.message }}</p>
+            </div>
+            <div class="notification-actions">
+                <button class="delete-btn" (click)="deleteNotification(notification.id)">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="decoration-circle circle-1"></div>
+<div class="decoration-circle circle-2"></div>
+<div class="decoration-circle circle-3"></div>
+
+<div class="notifications-modal" [class.show]="showModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>{{ selectedNotification?.title || 'Notification Details' }}</h2>
+            <button class="close-btn" (click)="closeModal()">×</button>
+        </div>
+
+        <div class="modal-body">
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">
+                        <i class="fas fa-info-circle"></i>
+                        <span>MESSAGE</span>
+                    </div>
+                    <div class="info-value">{{ selectedNotification?.message }}</div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-label">
+                        <i class="fas fa-clock"></i>
+                        <span>DATE</span>
+                    </div>
+                    <div class="info-value">{{ selectedNotification?.createdAt | date:'medium' }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" [class.show]="showModal" (click)="closeModal()"></div>
+
+<style>
+    .decoration-circle {
+        position: absolute;
+        border-radius: 50%;
+        z-index: -1;
+        animation: float 6s ease-in-out infinite;
+    }
+
+    .circle-1 {
+        width: 100px;
+        height: 100px;
+        background: rgba(231, 76, 60, 0.1);
+        top: -30px;
+        right: 10%;
+    }
+
+    .circle-2 {
+        width: 150px;
+        height: 150px;
+        background: rgba(52, 152, 219, 0.1);
+        bottom: 20%;
+        left: -50px;
+        animation-delay: -2s;
+    }
+
+    .circle-3 {
+        width: 80px;
+        height: 80px;
+        background: rgba(46, 204, 113, 0.1);
+        top: 40%;
+        right: -20px;
+        animation-delay: -4s;
+    }
+
+    @keyframes float {
+
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-20px);
+        }
+    }
+</style>

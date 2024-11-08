@@ -1,0 +1,81 @@
+<div class="login-container">
+  <!-- Left side - Image -->
+  <div class="image-section">
+    <img src="assets/images/blood-donation.jpg" alt="Blood Donation" class="login-image">
+    <div class="image-overlay">
+      <h2 class="overlay-text">Welcome Back!</h2>
+      <p class="overlay-description">Your contribution can save lives. Login to continue your noble cause.</p>
+    </div>
+  </div>
+
+  <!-- Right side - Login Form -->
+  <div class="login-form-section">
+    <div class="form-header">
+      <h1 class="title">Login</h1>
+      <p class="subtitle">Please login to your account</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <div class="form-group">
+        <div class="input-group">
+          <i class="fas fa-envelope input-icon"></i>
+          <input 
+            type="email" 
+            formControlName="email" 
+            placeholder="Email Address"
+            class="form-control"
+            [class.is-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+          >
+        </div>
+        <div class="error-message" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+          <span *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</span>
+          <span *ngIf="loginForm.get('email')?.errors?.['email']">Please enter a valid email</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="input-group">
+          <i class="fas fa-lock input-icon"></i>
+          <input 
+            [type]="showPassword ? 'text' : 'password'"
+            formControlName="password" 
+            placeholder="Password"
+            class="form-control"
+            [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+          >
+          <i 
+            class="fas" 
+            [class.fa-eye]="!showPassword" 
+            [class.fa-eye-slash]="showPassword"
+            (click)="togglePasswordVisibility()"
+            class="password-toggle"
+          ></i>
+        </div>
+        <div class="error-message" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+          Password is required
+        </div>
+      </div>
+
+      <div class="form-options">
+        <label class="remember-me">
+          <input type="checkbox" formControlName="rememberMe">
+          <span class="checkbox-label">Remember me</span>
+        </label>
+        <a href="#" class="forgot-password">Forgot Password?</a>
+      </div>
+
+      <button type="submit" class="login-btn" [disabled]="loginForm.invalid || isLoading">
+        <span *ngIf="!isLoading">Login</span>
+        <div class="spinner" *ngIf="isLoading">
+          <div class="bounce1"></div>
+          <div class="bounce2"></div>
+          <div class="bounce3"></div>
+        </div>
+      </button>
+
+      <div class="register-link">
+        Don't have an account? <a routerLink="/register">Register now</a>
+      </div>
+    </form>
+  </div>
+</div> 

@@ -1,0 +1,78 @@
+<div class="emergency-container">
+    <div class="page-header">
+        <h1>Emergency Blood Requests</h1>
+        <p class="subtitle">Urgent blood donation needs</p>
+    </div>
+
+    <div class="search-bar">
+        <div class="search-input">
+            <i class="fas fa-search"></i>
+            <input 
+                type="text" 
+                [(ngModel)]="searchDistrict" 
+                placeholder="Search by district..."
+            >
+        </div>
+    </div>
+
+    <div class="loading-state" *ngIf="loading">
+        <div class="spinner"></div>
+        <p>Loading emergency requests...</p>
+    </div>
+
+    <div class="requests-grid" *ngIf="!loading">
+        <div class="request-card" *ngFor="let request of filteredRequests">
+            <div class="urgency-indicator" [class]="request.urgencyLevel.toLowerCase()">
+                <i class="fas fa-exclamation-circle"></i>
+                {{ request.urgencyLevel }}
+            </div>
+
+            <div class="card-content">
+                <div class="blood-type-badge">
+                    {{ request.bloodType }}
+                </div>
+
+                <div class="request-info">
+                    <h3>{{ request.hospital }}</h3>
+                    <div class="district">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>{{ request.district }}</span>
+                    </div>
+                    <div class="details">
+                        <div class="detail-item">
+                            <i class="fas fa-user"></i>
+                            <span>{{ request.patientName }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-tint"></i>
+                            <span>{{ request.unitsNeeded }} units needed</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>{{ request.createdAt | date:'MMM d, h:mm a' }}</span>
+                        </div>
+                    </div>
+
+                    <p class="description">{{ request.description }}</p>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="primary-btn" (click)="initiateCall(request.contactNumber)">
+                        <i class="fas fa-phone"></i>
+                        Contact Now
+                    </button>
+                    <button class="share-btn" (click)="shareRequest(request)">
+                        <i class="fas fa-share-alt"></i>
+                        Share
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="no-results" *ngIf="filteredRequests.length === 0">
+            <i class="fas fa-search"></i>
+            <h3>No emergency requests found</h3>
+            <p>No blood requests found for the specified district</p>
+        </div>
+    </div>
+</div>

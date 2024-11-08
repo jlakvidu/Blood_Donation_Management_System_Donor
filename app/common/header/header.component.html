@@ -1,0 +1,81 @@
+<header class="header">
+    <div class="hamburger-menu" (click)="toggleSidebar()">
+        <div class="bar" [class.active]="isSidebarOpen"></div>
+    </div>
+
+    <div class="logo">
+        <h1>Blood Donation System</h1>
+    </div>
+
+    <nav class="nav-links">
+        <a routerLink="" class="nav-item">Home</a>
+        <a routerLink="emerganzy" class="nav-item">Emerganzy</a>
+        <a routerLink="appointment" class="nav-item">Scheduling Donation</a>
+        <a routerLink="notifications" class="nav-item">App Notifications</a>
+        <a routerLink="appointment" class="nav-item">Appointment</a>
+        <a routerLink="health-tips" class="nav-item">Health Tips</a>
+        <a routerLink="campaigns" class="nav-item">Campaigns</a>
+    </nav>
+</header>
+
+<div class="sidebar" [class.active]="isSidebarOpen">
+    <div class="sidebar-header">
+        <div class="profile-image">
+            <img [src]="donor.profileImagePath ? apiUrl + donor.profileImagePath + '?t=' + getTimestamp() : 'assets/images/default-profile.jpg'"
+                [alt]="donor.name + '\'s Profile'" (error)="handleImageError($event)">
+        </div>
+        <div class="profile-info">
+            <h3>{{ donor.name || 'Guest User' }}</h3>
+            <span class="blood-type">{{ donor.bloodType || 'Unknown' }}</span>
+        </div>
+    </div>
+
+    <div class="donor-stats">
+        <div class="stat-item">
+            <i class="fas fa-tint"></i>
+            <div class="stat-details">
+                <span class="stat-value">{{ donor.totalDonations || 0 }}</span>
+                <span class="stat-label">Donations</span>
+            </div>
+        </div>
+        <div class="stat-item">
+            <i class="fas fa-calendar"></i>
+            <div class="stat-details">
+                <span class="stat-value">{{ formatNextDonationDate() }}</span>
+                <span class="stat-label">Next Donation</span>
+            </div>
+        </div>
+    </div>
+
+    <nav class="sidebar-menu">
+        <a (click)="navigateToProfile()" class="menu-item">
+            <i class="fas fa-user"></i>
+            <span>My Profile</span>
+        </a>
+        <a href="#" class="menu-item">
+            <i class="fas fa-history"></i>
+            <span>Donation History</span>
+        </a>
+        <a (click)="navigateToAppointment()" class="menu-item">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Appointments</span>
+        </a>
+        <a (click)="navigateToNotifications()" class="menu-item">
+            <i class="fas fa-bell"></i>
+            <span>Notifications</span>
+        </a>
+        <a href="#" class="menu-item">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+        </a>
+    </nav>
+
+    <div class="sidebar-footer">
+        <a (click)="logout()" class="logout-btn" style="cursor: pointer;">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+        </a>
+    </div>
+</div>
+
+<div class="overlay" [class.active]="isSidebarOpen" (click)="toggleSidebar()"></div>

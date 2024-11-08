@@ -1,0 +1,169 @@
+<div class="profile-container">
+    <div *ngIf="isLoading" class="loading-spinner-container">
+        <mat-spinner diameter="50" color="primary"></mat-spinner>
+        <p class="loading-text">Loading donor profile...</p>
+    </div>
+
+    <div *ngIf="!isLoading" class="profile-content">
+        <div class="profile-header">
+            <div class="profile-cover">
+                <div class="profile-avatar">
+                    <input #fileInput type="file" accept="image/*" style="display: none;"
+                        (change)="onFileSelected($event)">
+                    <div class="avatar-image"
+                        [style.backgroundImage]="donor.profileImagePath ? 'url(' + apiUrl + donor.profileImagePath + ')' : 'url(/assets/images/default-profile.jpg)'"
+                        (click)="fileInput.click()">
+                    </div>
+                    <div class="edit-avatar" (click)="fileInput.click()">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-info">
+                <h1>{{donor.name}}</h1>
+                <span class="blood-type">{{donor.bloodType}}</span>
+                <div class="donor-badges">
+                    <span class="badge">
+                        <i class="fas fa-award"></i> Regular Donor
+                    </span>
+                    <span class="badge">
+                        <i class="fas fa-heart"></i> Life Saver
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-container">
+            <div class="stat-card">
+                <i class="fas fa-tint"></i>
+                <div class="stat-info">
+                    <h3>{{donor.totalDonations}}</h3>
+                    <p>Total Donations</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-calendar-check"></i>
+                <div class="stat-info">
+                    <h3>{{donor.lastDonation}}</h3>
+                    <p>Last Donation</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-clock"></i>
+                <div class="stat-info">
+                    <h3>{{donor.nextEligibleDate}}</h3>
+                    <p>Next Eligible Date</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-sections">
+            <!-- Personal Information -->
+            <div class="profile-section">
+                <div class="section-header">
+                    <h2>Personal Information</h2>
+                    <button class="btn btn-primary" [routerLink]="['/donor-edit']">
+                        Edit Profile
+                    </button>
+                </div>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>Full Name</label>
+                        <p>{{donor.name}}</p>
+                    </div>
+                    <div class="info-item">
+                        <label>Date of Birth</label>
+                        <p>{{donor.dob | date}}</p>
+                    </div>
+                    <div class="info-item">
+                        <label>Age</label>
+                        <p>{{donor.age}} years</p>
+                    </div>
+                    <div class="info-item">
+                        <label>Blood Type</label>
+                        <p>{{donor.bloodType}}</p>
+                    </div>
+                    <div class="info-item">
+                        <label>District</label>
+                        <p>{{donor.district}}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-section">
+                <div class="section-header">
+                    <h2>Contact Information</h2>
+                    <button class="btn btn-primary" [routerLink]="['/donor-edit']">
+                        Edit Profile
+                    </button>
+                </div>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>Email</label>
+                        <p>{{donor.emailAddress || 'No email provided'}}</p>
+                    </div>
+                    <div class="info-item">
+                        <label>Phone</label>
+                        <p>{{donor.contactNumber || 'No phone provided'}}</p>
+                    </div>
+                    <div class="info-item">
+                        <label>District</label>
+                        <p>{{donor.district || 'No district provided'}}</p>
+                    </div>
+                    <div class="info-item full-width">
+                        <label>Address</label>
+                        <p>{{donor.address || 'No address provided'}}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-section">
+                <div class="section-header">
+                    <h2>Medical History</h2>
+                    <button class="btn btn-primary" [routerLink]="['/donor-edit']">
+                        Edit Profile
+                    </button>
+                </div>
+                <div class="medical-history">
+                    <div class="medical-item" *ngFor="let condition of donor.medicalHistory">
+                        <i class="fas" [class.fa-check-circle]="!condition.hasCondition"
+                            [class.fa-times-circle]="condition.hasCondition"></i>
+                        <span>{{condition.name}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-section">
+                <div class="section-header">
+                    <h2>Donation History</h2>
+                </div>
+                <div class="donation-timeline">
+                    <div class="timeline-item" *ngFor="let donation of donor.donationHistory">
+                        <div class="timeline-date">
+                            <span class="date">{{donation.date | date}}</span>
+                        </div>
+                        <div class="timeline-content">
+                            <h4>{{donation.location}}</h4>
+                            <p>{{donation.type}} Donation</p>
+                            <span class="status-badge" [class]="'status-' + donation.status.toLowerCase()">
+                                {{donation.status}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-section danger-zone">
+                <div class="section-header">
+                    <h2>Danger Zone</h2>
+                </div>
+                <div class="delete-account">
+                    <p class="warning-text">Once you delete your account, there is no going back. Please be certain.</p>
+                    <button class="btn btn-danger" (click)="deleteDonorById(donor.id)">
+                        <i class="fas fa-trash-alt"></i> Delete Account
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

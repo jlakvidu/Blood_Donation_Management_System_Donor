@@ -1,0 +1,134 @@
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+* {
+  box-sizing: border-box;
+}/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Hospital Details Modal Styles */
+.hospital-details-modal {
+padding: 0;
+text-align: left;
+}
+
+.modal-header {
+background: linear-gradient(135deg, #e41e31, #ff4b6a);
+color: white;
+padding: 20px;
+border-radius: 8px 8px 0 0;
+}
+
+.modal-header h2 {
+margin: 0;
+font-size: 24px;
+font-weight: 500;
+}
+
+.hospital-type {
+margin: 5px 0 0;
+opacity: 0.9;
+font-size: 14px;
+}
+
+.modal-content {
+padding: 24px;
+}
+
+.detail-group {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 20px;
+margin-bottom: 20px;
+padding-bottom: 20px;
+border-bottom: 1px solid #eee;
+}
+
+.detail-group:last-child {
+border-bottom: none;
+}
+
+.detail-item {
+display: flex;
+gap: 12px;
+align-items: flex-start;
+}
+
+.detail-item i {
+color: #e41e31;
+font-size: 20px;
+}
+
+.detail-text label {
+display: block;
+font-weight: 500;
+color: #666;
+font-size: 12px;
+text-transform: uppercase;
+margin-bottom: 4px;
+}
+
+.detail-text p {
+margin: 0;
+color: #333;
+font-size: 14px;
+line-height: 1.4;
+}
+
+.special-notice {
+margin-top: 20px;
+padding: 15px;
+background: #fff3e0;
+border-left: 4px solid #f57c00;
+border-radius: 4px;
+display: flex;
+gap: 12px;
+}
+
+.special-notice i {
+color: #f57c00;
+}
+
+.details-close-button {
+color: white !important;
+opacity: 0.8;
+transition: all 0.3s ease;
+}
+
+.details-close-button:hover {
+opacity: 1;
+transform: rotate(90deg);
+}
+
+/* Update card action button styles */
+.details-button {
+opacity: 0.7;
+transition: all 0.3s ease !important;
+}
+
+.details-button:hover {
+opacity: 1;
+transform: scale(1.1);
+}
+
+/* SweetAlert2 Custom Styles */
+.hospital-details-popup {
+max-width: 900px !important;
+border-radius: 12px !important;
+}
+
+.hospital-details-container .swal2-close {
+color: #666 !important;
+transition: all 0.3s ease;
+}
+
+.hospital-details-container .swal2-close:hover {
+color: #e41e31 !important;
+transform: rotate(90deg);
+}

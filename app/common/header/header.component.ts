@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, OnDestroy, Renderer2, ElementRef } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 interface DonorProfile {
   name: string;
@@ -32,19 +33,34 @@ export class HeaderComponent implements OnInit, OnDestroy {
   apiUrl = 'http://localhost:8080';
   private profileImageListener: any;
   private destroy$ = new Subject<void>();
+  shouldShowHeader = true;
+  private imageTimestamp: string;
+  showHeader = false;
+  private excludedRoutes = ['/login', '/donor-form', '/signin', '/donor-registration'];
 
   constructor(
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private renderer: Renderer2,
+    private el: ElementRef
   ) {
     this.profileImageListener = () => {
       this.loadDonorProfile();
     };
     window.addEventListener('donorProfileImageUpdated', this.profileImageListener);
+    window.addEventListener('storage', this.checkAuthStatus.bind(this));
+    this.imageTimestamp = Date.now().toString();
+    this.checkRoute();
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.checkRoute();
+    });
   }
 
   ngOnInit() {
     this.loadDonorProfile();
+    this.checkRoute();
   }
 
   ngOnDestroy() {
@@ -59,6 +75,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.http.get<any>(`${this.apiUrl}/donor/profile/${email}`)
         .subscribe({
           next: (response) => {
+            this.imageTimestamp = Date.now().toString();
             this.donor = {
               name: response.name || 'Guest User',
               bloodType: response.bloodType || 'Unknown',
@@ -85,7 +102,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   handleImageError(event: any): void {
-    event.target.src = 'assets/images/default-profile.jpg';
+    event.target.style.backgroundImage = 'url(assets/images/default-profile.jpg)';
   }
 
   toggleSidebar() {
@@ -117,7 +134,24 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.isSidebarOpen = false;
   }
 
-  getTimestamp(): string {
-    return new Date().getTime().toString();
+  private checkAuthStatus(): void {
+    this.shouldShowHeader = localStorage.getItem('userEmailAddress') !== null;
+  }
+
+  getProfileImageUrl(): string {
+    if (this.donor.profileImagePath) {
+      return `${this.apiUrl}${this.donor.profileImagePath}?t=${this.imageTimestamp}`;
+    }
+    return 'assets/images/default-profile.jpg';
+  }
+
+  private checkRoute() {
+    const currentUrl = this.router.url;
+    this.showHeader = !this.excludedRoutes.some(route => currentUrl.includes(route));
+    
+    const header = this.el.nativeElement.querySelector('.header-container');
+    if (header) {
+      this.renderer.setStyle(header, 'display', this.showHeader ? 'block' : 'none');
+    }
   }
 }

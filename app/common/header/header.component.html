@@ -1,5 +1,5 @@
 <div class="header-container">
-    <div *ngIf="shouldShowHeader">
+    <div *ngIf="showHeader">
         <header class="header">
             <div class="hamburger-section">
                 <div class="hamburger-menu" (click)="toggleSidebar()">
@@ -20,7 +20,8 @@
                 <h1>Blood Donation System</h1>
             </div>
 
-            <nav class="nav-links">
+            <!-- Desktop Navigation -->
+            <nav class="nav-links desktop-nav">
                 <a routerLink="" class="nav-item">Home</a>
                 <a routerLink="donor-registration" class="nav-item">Emerganzy</a>
                 <a routerLink="appointment" class="nav-item">Scheduling Donation</a>
@@ -63,6 +64,41 @@
             </div>
 
             <nav class="sidebar-menu">
+                <!-- Mobile Navigation Links -->
+                <div class="mobile-nav">
+                    <a routerLink="" class="menu-item" (click)="toggleSidebar()">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    <a routerLink="donor-registration" class="menu-item" (click)="toggleSidebar()">
+                        <i class="fas fa-ambulance"></i>
+                        <span>Emerganzy</span>
+                    </a>
+                    <a routerLink="appointment" class="menu-item" (click)="toggleSidebar()">
+                        <i class="fas fa-clock"></i>
+                        <span>Scheduling Donation</span>
+                    </a>
+                    <a routerLink="notifications" class="menu-item" (click)="toggleSidebar()">
+                        <i class="fas fa-bell"></i>
+                        <span>App Notifications</span>
+                    </a>
+                    <a routerLink="appointment" class="menu-item" (click)="toggleSidebar()">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Appointment</span>
+                    </a>
+                    <a routerLink="health-tips" class="menu-item" (click)="toggleSidebar()">
+                        <i class="fas fa-heart"></i>
+                        <span>Health Tips</span>
+                    </a>
+                    <a routerLink="campaigns" class="menu-item" (click)="toggleSidebar()">
+                        <i class="fas fa-bullhorn"></i>
+                        <span>Campaigns</span>
+                    </a>
+                </div>
+
+                <div class="divider"></div>
+
+                <!-- Existing Profile Menu Items -->
                 <a (click)="navigateToProfile()" class="menu-item">
                     <i class="fas fa-user"></i>
                     <span>My Profile</span>

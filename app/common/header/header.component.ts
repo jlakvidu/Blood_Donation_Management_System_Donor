@@ -33,7 +33,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   apiUrl = 'http://localhost:8080';
   private profileImageListener: any;
   private destroy$ = new Subject<void>();
-  shouldShowHeader = true;
   private imageTimestamp: string;
   showHeader = false;
   private excludedRoutes = ['/login', '/donor-form', '/signin', '/donor-registration'];
@@ -135,7 +134,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   private checkAuthStatus(): void {
-    this.shouldShowHeader = localStorage.getItem('userEmailAddress') !== null;
+    const isLoggedIn = localStorage.getItem('userEmailAddress') !== null;
+    const currentUrl = this.router.url;
+    const isExcludedRoute = this.excludedRoutes.some(route => currentUrl.includes(route));
+    
+    this.showHeader = isLoggedIn && !isExcludedRoute;
+    this.updateHeaderVisibility();
   }
 
   getProfileImageUrl(): string {
@@ -147,8 +151,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private checkRoute() {
     const currentUrl = this.router.url;
-    this.showHeader = !this.excludedRoutes.some(route => currentUrl.includes(route));
+    const isExcludedRoute = this.excludedRoutes.some(route => currentUrl.includes(route));
+    const isLoggedIn = localStorage.getItem('userEmailAddress') !== null;
     
+    this.showHeader = !isExcludedRoute && isLoggedIn;
+    this.updateHeaderVisibility();
+  }
+
+  private updateHeaderVisibility() {
     const header = this.el.nativeElement.querySelector('.header-container');
     if (header) {
       this.renderer.setStyle(header, 'display', this.showHeader ? 'block' : 'none');

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -25,7 +25,7 @@ interface ResetPasswordState {
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterModule, FormsModule]
 })
-export class DonorSignInComponent {
+export class DonorSignInComponent implements OnInit {
   loginForm: FormGroup;
   isLoading = false;
   showPassword = false;
@@ -59,6 +59,13 @@ export class DonorSignInComponent {
     });
   }
 
+  ngOnInit() {
+    // Check if user is already logged in
+    if (localStorage.getItem('isLoggedIn') === 'true') {
+      this.router.navigate(['/donor-dashboard']);
+    }
+  }
+
   togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
   }
@@ -88,7 +95,7 @@ export class DonorSignInComponent {
       if (this.selectedImage) {
         const reader = new FileReader();
         reader.onload = () => {
-          loginRequest.profileImage = reader.result as string;  // Base64 image data
+          loginRequest.profileImage = reader.result as string;  
           this.sendLoginRequest(loginRequest);
         };
         reader.readAsDataURL(this.selectedImage);
@@ -111,6 +118,9 @@ export class DonorSignInComponent {
           console.log('Login response:', response);
 
           if (response === "Login successful") {
+            localStorage.clear();
+            sessionStorage.clear();
+            
             localStorage.setItem('userEmailAddress', loginRequest.emailAddress);
             localStorage.setItem('isLoggedIn', 'true');
             
@@ -118,9 +128,9 @@ export class DonorSignInComponent {
               localStorage.setItem('userProfileImage', loginRequest.profileImage);
             }
 
-            this.loadInitialNotifications(loginRequest.emailAddress);
-
-            alert('Login successful!');
+            window.dispatchEvent(new Event('donorProfileImageUpdated'));
+            
+            // Navigate to dashboard after successful login
             this.router.navigate(['/donor-dashboard']);
           } else {
             this.errorMessage = 'Invalid credentials';

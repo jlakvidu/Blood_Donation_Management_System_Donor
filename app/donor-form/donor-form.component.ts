@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, ElementRef, Renderer2 } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -6,9 +6,9 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-donor-registration',
-  templateUrl: './donor-registration.component.html',
-  styleUrls: ['./donor-registration.component.scss'],
+  selector: 'app-donor-form',
+  templateUrl: './donor-form.component.html',
+  styleUrls: ['./donor-form.component.css'],
   standalone: true,
   imports: [
     CommonModule,
@@ -27,6 +27,8 @@ export class DonorFormComponent {
   constructor(
     private http: HttpClient,
     private router: Router,
+    private el: ElementRef,
+    private renderer: Renderer2
   ) {
     this.donorForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
@@ -115,6 +117,35 @@ export class DonorFormComponent {
         });
     } else {
       alert("Please fill in all required fields.");
+    }
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll() {
+    const scrollPosition = window.pageYOffset 
+      || document.documentElement.scrollTop 
+      || document.body.scrollTop 
+      || 0;
+    const threshold = 100;
+
+    if (scrollPosition > threshold) {
+      this.renderer.addClass(this.el.nativeElement, 'scrolled');
+      const formSection = this.el.nativeElement.querySelector('.form-section');
+      const container = this.el.nativeElement.querySelector('.registration-container');
+      const imageSection = this.el.nativeElement.querySelector('.image-section');
+      
+      if (formSection) this.renderer.addClass(formSection, 'scrolled');
+      if (container) this.renderer.addClass(container, 'scrolled');
+      if (imageSection) this.renderer.addClass(imageSection, 'scrolled');
+    } else {
+      this.renderer.removeClass(this.el.nativeElement, 'scrolled');
+      const formSection = this.el.nativeElement.querySelector('.form-section');
+      const container = this.el.nativeElement.querySelector('.registration-container');
+      const imageSection = this.el.nativeElement.querySelector('.image-section');
+      
+      if (formSection) this.renderer.removeClass(formSection, 'scrolled');
+      if (container) this.renderer.removeClass(container, 'scrolled');
+      if (imageSection) this.renderer.removeClass(imageSection, 'scrolled');
     }
   }
 }

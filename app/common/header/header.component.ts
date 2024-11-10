@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
 
 interface DonorProfile {
   name: string;
@@ -30,6 +31,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   };
   apiUrl = 'http://localhost:8080';
   private profileImageListener: any;
+  private destroy$ = new Subject<void>();
 
   constructor(
     private router: Router,
@@ -46,6 +48,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.destroy$.complete();
     window.removeEventListener('donorProfileImageUpdated', this.profileImageListener);
   }
 
@@ -100,15 +103,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    const confirmLogout = confirm('Are you sure you want to logout?');
-
-    if (confirmLogout) {
-      localStorage.removeItem('user');
-      sessionStorage.clear();
-      alert('You have been successfully logged out');
+    localStorage.clear();
+    sessionStorage.clear();
+    this.destroy$.next();
+    
+    setTimeout(() => {
       this.router.navigate(['/login']);
-      this.isSidebarOpen = false;
-    }
+    });
   }
 
   navigateToAppointment() {

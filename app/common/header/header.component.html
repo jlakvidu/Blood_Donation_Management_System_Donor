@@ -9,7 +9,7 @@
 
     <nav class="nav-links">
         <a routerLink="" class="nav-item">Home</a>
-        <a routerLink="emerganzy" class="nav-item">Emerganzy</a>
+        <a routerLink="donor-registration" class="nav-item">Emerganzy</a>
         <a routerLink="appointment" class="nav-item">Scheduling Donation</a>
         <a routerLink="notifications" class="nav-item">App Notifications</a>
         <a routerLink="appointment" class="nav-item">Appointment</a>
@@ -21,7 +21,7 @@
 <div class="sidebar" [class.active]="isSidebarOpen">
     <div class="sidebar-header">
         <div class="profile-image">
-            <img [src]="donor.profileImagePath ? apiUrl + donor.profileImagePath + '?t=' + getTimestamp() : 'assets/images/default-profile.jpg'"
+            <img [src]="donor.profileImagePath ? apiUrl + donor.profileImagePath + '?t=' + getTimestamp() : 'assets/images/default-hospital.jpg'"
                 [alt]="donor.name + '\'s Profile'" (error)="handleImageError($event)">
         </div>
         <div class="profile-info">

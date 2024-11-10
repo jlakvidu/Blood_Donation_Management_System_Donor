@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
-import { DonorFormComponent} from './donor-registration/donor-registration.component';
+import { inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { DonorFormComponent} from './donor-form/donor-form.component';
 import { DonorSignInComponent } from './donor-sign-in/donor-sign-in.component';
 import { DonorDashboardComponent } from './donor-dashboard/donor-dashboard.component';
 import { DonorProfileComponent } from './donor-profile/donor-profile.component';
@@ -11,61 +13,57 @@ import { PlaceAppointmentComponent } from './place-appointment/place-appointment
 import { NotificationsComponent } from './notifications/notifications.component';
 import { ViewEmerganzyBloodNeedComponent } from './view-emerganzy-blood-need/view-emerganzy-blood-need.component';
 import { CampaignsComponent } from './campaigns/campaigns.component';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+
 
 export const routes: Routes = [
     {
-        path : "",
-        component : DonorSignInComponent
+        path: "",
+        component: DonorSignInComponent
     },
-
-    {
-        path : "donor-registration",
-        component : DonorFormComponent
-    },
-
-    {
-        path: 'donor-profile', 
-        component: DonorProfileComponent
-    },
-
-    {
-        path: 'donor-dashboard',
-        component: DonorDashboardComponent
-    },
-
     {
         path: 'login',
-        component: DonorSignInComponent 
+        component: DonorSignInComponent
     },
-
     {
-        path : 'donor-edit',
-        component: DonorEditComponent
+        path: 'donor-registration',
+        component: DonorFormComponent
     },
 
+    // Protected routes
+    {
+        path: 'donor-dashboard',
+        component: DonorDashboardComponent,
+    },
+    {
+        path: 'donor-profile', 
+        component: DonorProfileComponent,
+    },
+    {
+        path: 'donor-edit',
+        component: DonorEditComponent,    },
     {
         path: 'health-tips',
-        component: DonorHealthTipsComponent
+        component: DonorHealthTipsComponent,
     },
-
     {
         path: 'campaigns',
-        component: CampaignsComponent
+        component: CampaignsComponent,
     },
     {
         path: 'appointment',
-        component: AppointmentComponent
+        component: AppointmentComponent,
     },
     {
         path: 'place-appointment',
-        component: PlaceAppointmentComponent
+        component: PlaceAppointmentComponent,
     },
     {
         path: 'notifications',
-        component: NotificationsComponent
+        component: NotificationsComponent,
     },
     {
         path: 'emerganzy',
-        component: ViewEmerganzyBloodNeedComponent
-    }
+        component: ViewEmerganzyBloodNeedComponent,
+    },
 ];

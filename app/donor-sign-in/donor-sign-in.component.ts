@@ -130,8 +130,15 @@ export class DonorSignInComponent implements OnInit {
 
             window.dispatchEvent(new Event('donorProfileImageUpdated'));
             
-            // Navigate to dashboard after successful login
-            this.router.navigate(['/donor-dashboard']);
+            Swal.fire({
+              title: 'Success!',
+              text: 'Login successful',
+              icon: 'success',
+              timer: 1500,
+              showConfirmButton: false
+            }).then(() => {
+              this.router.navigate(['/donor-dashboard']);
+            });
           } else {
             this.errorMessage = 'Invalid credentials';
           }

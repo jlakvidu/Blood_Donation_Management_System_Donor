@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import Swal from 'sweetalert2';
 
 interface DonorProfile {
   name: string;
@@ -119,12 +120,25 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    localStorage.clear();
-    sessionStorage.clear();
-    this.destroy$.next();
-    
-    setTimeout(() => {
-      this.router.navigate(['/login']);
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You will be logged out of your account!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, logout!',
+      cancelButtonText: 'Cancel'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.clear();
+        sessionStorage.clear();
+        this.destroy$.next();
+        
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        });
+      }
     });
   }
 

@@ -17,13 +17,18 @@
     height: 200px;
     background: linear-gradient(135deg, #e41e31, #ff4b6a);
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .profile-avatar {
-    position: relative;
+    position: absolute;
     width: 150px;
     height: 150px;
-    margin: 0 auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .avatar-image {
@@ -73,13 +78,16 @@
 }
 
 .profile-info {
-    padding: 90px 50px 30px;
+    margin-top: 20px;
+    padding: 30px 50px;
+    text-align: center;
 }
 
 .profile-info h1 {
     margin: 0;
     font-size: 2rem;
     color: #2c3e50;
+    font-weight: 700;
 }
 
 .blood-type {
@@ -88,24 +96,30 @@
     background: #e41e31;
     color: white;
     border-radius: 20px;
-    font-size: 0.9rem;
     margin: 10px 0;
+    font-weight: 500;
 }
 
 .donor-badges {
-    margin-top: 10px;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
 }
 
 .badge {
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    gap: 5px;
-    padding: 5px 15px;
+    gap: 0.5rem;
+    padding: 8px 16px;
     background: #f8f9fa;
     border-radius: 20px;
+    color: #2c3e50;
     font-size: 0.9rem;
-    margin-right: 10px;
-    color: #6c757d;
+}
+
+.badge i {
+    color: #e41e31;
 }
 
 .stats-container {

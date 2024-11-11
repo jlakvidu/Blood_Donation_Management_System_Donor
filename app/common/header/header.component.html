@@ -7,23 +7,21 @@
                 </div>
                 <div class="donor-info" *ngIf="donor.name">
                     <div class="donor-avatar">
-                        <div class="avatar-image"
-                            [style.backgroundImage]="'url(' + getProfileImageUrl() + ')'"
+                        <div class="avatar-image" [style.backgroundImage]="'url(' + getProfileImageUrl() + ')'"
                             (error)="handleImageError($event)">
                         </div>
                     </div>
-                    <span class="donor-name">{{ donor.name }}</span>
+                    <span class="hospital-name">Life Saver</span>
                 </div>
             </div>
 
             <div class="logo">
-                <h1>Blood Donation System</h1>
+
             </div>
 
-            <!-- Desktop Navigation -->
-            <nav class="nav-links desktop-nav">
+            = <nav class="nav-links desktop-nav">
                 <a routerLink="" class="nav-item">Home</a>
-                <a routerLink="donor-registration" class="nav-item">Emerganzy</a>
+                <a routerLink="emerganzy" class="nav-item">Emerganzy</a>
                 <a routerLink="appointment" class="nav-item">Scheduling Donation</a>
                 <a routerLink="notifications" class="nav-item">App Notifications</a>
                 <a routerLink="appointment" class="nav-item">Appointment</a>
@@ -35,8 +33,7 @@
         <div class="sidebar" [class.active]="isSidebarOpen">
             <div class="sidebar-header">
                 <div class="profile-image">
-                    <div class="avatar-image"
-                        [style.backgroundImage]="'url(' + getProfileImageUrl() + ')'"
+                    <div class="avatar-image" [style.backgroundImage]="'url(' + getProfileImageUrl() + ')'"
                         (error)="handleImageError($event)">
                     </div>
                 </div>
@@ -64,8 +61,7 @@
             </div>
 
             <nav class="sidebar-menu">
-                <!-- Mobile Navigation Links -->
-                <div class="mobile-nav">
+                = <div class="mobile-nav">
                     <a routerLink="" class="menu-item" (click)="toggleSidebar()">
                         <i class="fas fa-home"></i>
                         <span>Home</span>
@@ -97,8 +93,6 @@
                 </div>
 
                 <div class="divider"></div>
-
-                <!-- Existing Profile Menu Items -->
                 <a (click)="navigateToProfile()" class="menu-item">
                     <i class="fas fa-user"></i>
                     <span>My Profile</span>

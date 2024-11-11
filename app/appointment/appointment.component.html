@@ -5,16 +5,6 @@
     <h2 class="section-title">Find Hospitals</h2>
     <div class="search-box">
       <div class="search-controls">
-        <mat-form-field appearance="outline" class="district-select">
-          <mat-label>Enter District</mat-label>
-          <input matInput [(ngModel)]="searchText" placeholder="Search by district name"
-            (keyup.enter)="searchHospitals()">
-          <mat-icon matPrefix>search</mat-icon>
-          <button *ngIf="searchText" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
-            <mat-icon>close</mat-icon>
-          </button>
-        </mat-form-field>
-
         <div class="search-filters">
           <mat-form-field appearance="outline">
             <mat-label>Select District</mat-label>
@@ -23,12 +13,8 @@
                 {{district}}
               </mat-option>
             </mat-select>
+            <mat-icon matPrefix>location_on</mat-icon>
           </mat-form-field>
-
-          <button mat-raised-button color="primary" class="search-button" (click)="searchHospitals()">
-            <mat-icon>search</mat-icon>
-            Search
-          </button>
         </div>
       </div>
     </div>
@@ -49,14 +35,9 @@
         <div class="hospital-info">
           <p><mat-icon>pin_drop</mat-icon> {{hospital.address}}</p>
           <p><mat-icon>phone</mat-icon> {{hospital.contactNumber}}</p>
-          <p><mat-icon>email</mat-icon> {{hospital.emailAddress}}</p>
           <p><mat-icon>access_time</mat-icon> {{hospital.operatingDaysAndHours}}</p>
 
           <div class="divider"></div>
-
-          <p><mat-icon>local_hospital</mat-icon> Registration: {{hospital.registrationNumber}}</p>
-          <p><mat-icon>water_drop</mat-icon> Blood Bank License: {{hospital.bloodBankLicenseNumber}}</p>
-          <p><mat-icon>inventory_2</mat-icon> Blood Bank Capacity: {{hospital.bloodBankCapacity}}</p>
 
           <div class="special-instructions" *ngIf="hospital.specialInstructions">
             <mat-icon>info</mat-icon>

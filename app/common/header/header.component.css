@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     padding: 1rem 2rem;
-    background: #FF0033;
+    background: linear-gradient(135deg, rgba(255, 0, 51, 0.8) 0%, rgba(255, 68, 0, 0.8) 100%);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     position: fixed;
     top: 0;
@@ -60,27 +60,112 @@
     bottom: 0;
 }
 
-.logo h1 {
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-icon {
     color: #ffffff;
-    font-size: 1.5rem;
-    margin: 0;
+    font-size: 2rem;
+    transition: transform 0.3s ease;
+}
+
+.logo-icon:hover {
+    transform: scale(1.1);
 }
 
 .nav-links {
     margin-left: auto;
     display: flex;
     gap: 1.5rem;
+    align-items: center;
 }
 
 .nav-item {
     color: #ffffff;
     text-decoration: none;
     font-weight: 500;
-    transition: color 0.3s ease;
+    padding: 0.5rem 1rem;
+    position: relative;
+    transition: all 0.3s ease;
+    overflow: hidden;
 }
 
+/* First animation - sliding underline from left to right */
+.nav-item::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #ffffff;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+/* Second animation - sliding underline from right to left */
+.nav-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #ffffff;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+}
+
+/* Hover effects */
 .nav-item:hover {
-    color: #f0f0f0;
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.nav-item:hover::before {
+    transform: translateX(0);
+    transition-delay: 0.1s;
+}
+
+.nav-item:hover::after {
+    transform: translateX(0);
+}
+
+/* Active state */
+.nav-item.active {
+    color: #ffffff;
+}
+
+.nav-item.active::before,
+.nav-item.active::after {
+    transform: translateX(0);
+}
+
+/* Ensure proper spacing */
+.nav-links {
+    margin-left: auto;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .nav-item {
+        padding: 0.3rem 0.8rem;
+    }
+    
+    .nav-item:hover {
+        transform: translateY(0);
+    }
+}
+
+/* Optional: Add a glow effect on hover */
+.nav-item:hover {
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
 }
 
 .sidebar {
@@ -248,8 +333,8 @@
         padding: 1rem;
     }
     
-    .logo h1 {
-        font-size: 1.2rem;
+    .logo-icon {
+        font-size: 1.5rem;
     }
 }
 
@@ -378,12 +463,8 @@
         justify-content: space-between;
     }
     
-    .logo h1 {
-        font-size: 1rem;
-        max-width: 200px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+    .logo-icon {
+        font-size: 1.5rem;
     }
 
     .hamburger-menu {
@@ -429,9 +510,8 @@
 }
 
 @media (max-width: 480px) {
-    .logo h1 {
-        font-size: 0.9rem;
-        max-width: 150px;
+    .logo-icon {
+        font-size: 1.5rem;
     }
 
     .sidebar {

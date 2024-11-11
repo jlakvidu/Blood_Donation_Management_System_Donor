@@ -132,3 +132,16 @@ transition: all 0.3s ease;
 color: #e41e31 !important;
 transform: rotate(90deg);
 }
+
+:root {
+  --primary-color: #e74c3c;
+  --secondary-color: #c0392b;
+  --accent-color: #3498db;
+  --text-primary: #2c3e50;
+  --text-secondary: #7f8c8d;
+  --background-light: #f8f9fa;
+  --card-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  --gradient-primary: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+  --gradient-secondary: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  --gradient-dark: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+}

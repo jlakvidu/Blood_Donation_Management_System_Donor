@@ -1,9 +1,13 @@
 <div class="campaigns-container">
-    <div class="page-header">
+    <div class="page-header animate-fade-in">
         <h1>Blood Donation Campaigns</h1>
         <p class="subtitle">Find and join blood donation campaigns near you</p>
+        <div class="header-decoration">
+            <i class="fas fa-heartbeat pulse-icon"></i>
+        </div>
     </div>
-    <div class="search-bar">
+
+    <div class="search-bar animate-slide-down">
         <div class="search-input">
             <i class="fas fa-search"></i>
             <input type="text" [(ngModel)]="searchDistrict" placeholder="Search by district...">
@@ -16,50 +20,61 @@
     </div>
 
     <div class="campaigns-grid" *ngIf="!loading">
-        <div class="campaign-card" *ngFor="let campaign of filteredCampaigns">
-            <!-- Campaign Image -->
+        <div class="campaign-card animate-fade-in" *ngFor="let campaign of filteredCampaigns">
+            <div class="card-ribbon">
+                <span>Donation Drive</span>
+            </div>
+            
             <div class="campaign-image"
                 [style.backgroundImage]="campaign.imagePath ? 'url(http://localhost:8080' + campaign.imagePath + ')' : 'url(assets/default-campaign.jpg)'">
                 <div class="date-badge">
-                    <i class="fas fa-calendar"></i>
+                    <i class="fas fa-calendar-alt"></i>
                     {{ campaign.date | date:'MMM d, yyyy' }}
                 </div>
+                <div class="image-overlay"></div>
             </div>
 
             <div class="card-content">
-                <h3>{{ campaign.title }}</h3>
-
-                <div class="venue">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>{{ campaign.venue }}</span>
+                <div class="campaign-title">
+                    <i class="fas fa-hand-holding-medical"></i>
+                    <h3>{{ campaign.title }}</h3>
                 </div>
 
-                <div class="hospital-info">
-                    <i class="fas fa-hospital"></i>
-                    <span>{{ campaign.hospitalName }}</span>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>{{ campaign.venue }}</span>
+                    </div>
+
+                    <div class="info-item">
+                        <i class="fas fa-hospital-alt"></i>
+                        <span>{{ campaign.hospitalName }}</span>
+                    </div>
+
+                    <div class="info-item">
+                        <i class="fas fa-map"></i>
+                        <span>{{ campaign.district }}</span>
+                    </div>
                 </div>
 
-                <div class="district-info">
-                    <i class="fas fa-map"></i>
-                    <span>{{ campaign.district }}</span>
+                <div class="description-container">
+                    <p class="description">{{ campaign.description }}</p>
                 </div>
-
-                <p class="description">{{ campaign.description }}</p>
 
                 <div class="action-buttons">
-                    <button class="primary-btn" (click)="initiateCall(campaign.contactNumber)">
-                        <i class="fas fa-phone"></i>
-                        Contact
+                    <button class="primary-btn ripple" (click)="initiateCall(campaign.contactNumber)">
+                        <i class="fas fa-phone-alt"></i>
+                        <span>Contact</span>
                     </button>
-                    <button class="share-btn" (click)="shareCampaign(campaign)">
+                    <button class="share-btn ripple" (click)="shareCampaign(campaign)">
                         <i class="fas fa-share-alt"></i>
-                        Share
+                        <span>Share</span>
                     </button>
                 </div>
             </div>
         </div>
 
-        <div class="no-results" *ngIf="filteredCampaigns.length === 0">
+        <div class="no-results animate-fade-in" *ngIf="filteredCampaigns.length === 0">
             <i class="fas fa-calendar-times"></i>
             <h3>No campaigns found</h3>
             <p>No blood donation campaigns found for the specified district</p>
